@@ -3,10 +3,11 @@ package com.lightsoutgaming.lightsoutengine.graphics;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-import java.nio.IntBuffer;
-
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL;
+
+import com.lightsoutgaming.lightsoutengine.Input.KeyboardInput;
+import com.lightsoutgaming.lightsoutengine.Input.MouseButtonListener;
+import com.lightsoutgaming.lightsoutengine.Input.MouseListener;
 
 public class Window {
 
@@ -50,6 +51,10 @@ public class Window {
 		GL.createCapabilities();
 		
 		glfwSetWindowSizeCallback(window, new WindowSizeCallback(this));
+		glfwSetKeyCallback(window, new KeyboardInput());
+		glfwSetCursorPosCallback(window, new MouseListener());
+		glfwSetMouseButtonCallback(window, new MouseButtonListener());
+		
 		
 		System.out.println("Window Created with the following OpenGL Instance:");
     	System.out.println("GL_VENDOR: " + glGetString(GL_VENDOR));
