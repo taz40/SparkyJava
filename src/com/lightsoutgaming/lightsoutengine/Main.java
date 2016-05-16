@@ -25,7 +25,7 @@ public class Main {
 	
 	public void Start(){
 		
-		window = new Window("Sparky Java",800,600);
+		window = new Window("Sparky Java",800,(int)((9f/16f)*800));
 		glClearColor(0f,0f,0f, 1f);
 		
 //		float[] vertecies = {
@@ -70,22 +70,33 @@ public class Main {
 		};
 		
 		float[] colorsB = {
+			0, 0, 1, 1,
+			1, 0, 1, 1,
+			1, 0, 1, 1,
+			0, 0, 1, 1
+		};
+		
+		float[] colorsC = {
+			1, 0, 1, 1,
 			0, 1, 0, 1,
 			0, 1, 0, 1,
-			0, 1, 0, 1,
-			0, 1, 0, 1
+			1, 0, 1, 1
 		};
 		
 		VertexArray Sprite1 = new VertexArray();
 		VertexArray Sprite2 = new VertexArray();
+		VertexArray Sprite3 = new VertexArray();
 		Buffer vboA = new Buffer(vertecies, 3);
 		Buffer vboB = new Buffer(vertecies, 3);
+		Buffer vboC = new Buffer(vertecies, 3);
 		Indexbuffer ibo = new Indexbuffer(indecies);
 		
 		Sprite1.addBuffer(vboA, 0);
 		Sprite1.addBuffer(new Buffer(colorsA, 4), 1);
 		Sprite2.addBuffer(vboB, 0);
 		Sprite2.addBuffer(new Buffer(colorsB, 4), 1);
+		Sprite3.addBuffer(vboC, 0);
+		Sprite3.addBuffer(new Buffer(colorsC, 4), 1);
 		
 		Mat4 ortho = Mat4.orthographic(0,  16, 0, 9, -1, 1);
 		
@@ -111,6 +122,12 @@ public class Main {
 			glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
 			ibo.unbind();
 			Sprite2.unbind();
+			Sprite3.bind();
+			ibo.bind();
+			shader.setUniformMat4("ml_matrix", Mat4.translation(new Vec3(8, 6, 0)));
+			glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+			ibo.unbind();
+			Sprite3.unbind();
 			
 			if(KeyboardInput.getKey(GLFW_KEY_ESCAPE)){
 				window.close();
