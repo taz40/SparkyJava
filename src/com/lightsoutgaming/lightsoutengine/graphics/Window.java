@@ -15,6 +15,16 @@ public class Window {
 	private String title;
 	private long window;
 	
+	WindowSizeCallback windowSizeCallback;
+	KeyboardInput keyboardInputCallback;
+	MouseListener mouseCallback;
+	MouseButtonListener mouseButtonCallback;
+	
+	public int fps;
+	private int frames;
+	private long timer;
+	private long lastTime;
+	
 	public Window(String title, int width, int height){
 		this.title = title;
 		this.width = width;
@@ -23,9 +33,19 @@ public class Window {
 	}
 	
 	public void update(){
+		frames++;
 		glfwPollEvents();
 		
-		glfwSwapBuffers(window);		
+		glfwSwapBuffers(window);
+		long now = System.nanoTime();
+		if(timer >= 1e+9){
+			timer = 0;
+			fps = frames;
+			frames = 0;
+		}else{
+			timer += now - lastTime;
+		}
+		lastTime = now;
 	}
 	
 	public void destroy(){
@@ -50,16 +70,24 @@ public class Window {
 		
 		GL.createCapabilities();
 		
-		glfwSetWindowSizeCallback(window, new WindowSizeCallback(this));
-		glfwSetKeyCallback(window, new KeyboardInput());
-		glfwSetCursorPosCallback(window, new MouseListener());
-		glfwSetMouseButtonCallback(window, new MouseButtonListener());
+		windowSizeCallback = new WindowSizeCallback(this);
+		keyboardInputCallback = new KeyboardInput();
+		mouseCallback = new MouseListener();
+		mouseButtonCallback = new MouseButtonListener();
+		
+		glfwSetWindowSizeCallback(window, windowSizeCallback);
+		glfwSetKeyCallback(window, keyboardInputCallback);
+		glfwSetCursorPosCallback(window, mouseCallback);
+		glfwSetMouseButtonCallback(window, mouseButtonCallback);
+		
+		glfwSwapInterval(0);
 		
 		
 		System.out.println("Window Created with the following OpenGL Instance:");
     	System.out.println("GL_VENDOR: " + glGetString(GL_VENDOR));
 		System.out.println("GL_RENDERER: " + glGetString(GL_RENDERER));
 		System.out.println("GL_VERSION: " + glGetString(GL_VERSION));
+		lastTime = System.nanoTime();
 		
 	}
 	

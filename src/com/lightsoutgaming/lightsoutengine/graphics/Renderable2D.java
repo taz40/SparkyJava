@@ -15,7 +15,7 @@ public class Renderable2D {
 	VertexArray vertexArray;
 	IndexBuffer indexBuffer;
 	
-	protected Renderable2D(Vec3 position, Vec2 size, Vec4 color){
+	public Renderable2D(Vec3 position, Vec2 size, Vec4 color){
 		this.size = size;
 		this.position = position;
 		this.color = color;
@@ -29,9 +29,9 @@ public class Renderable2D {
 		
 		float[] vertecies = {
 			0, 0, 0,
-			0, position.y, 0,
-			position.x, position.y, 0,
-			position.x, 0, 0
+			0, size.y, 0,
+			size.x, size.y, 0,
+			size.x, 0, 0
 		};
 		
 		float[] colors = {
