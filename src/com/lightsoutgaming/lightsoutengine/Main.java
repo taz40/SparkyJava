@@ -8,7 +8,7 @@ import com.lightsoutgaming.lightsoutengine.Input.KeyboardInput;
 import com.lightsoutgaming.lightsoutengine.graphics.Shader;
 import com.lightsoutgaming.lightsoutengine.graphics.Window;
 import com.lightsoutgaming.lightsoutengine.graphics.Buffers.Buffer;
-import com.lightsoutgaming.lightsoutengine.graphics.Buffers.Indexbuffer;
+import com.lightsoutgaming.lightsoutengine.graphics.Buffers.IndexBuffer;
 import com.lightsoutgaming.lightsoutengine.graphics.Buffers.VertexArray;
 import com.lightsoutgaming.lightsoutengine.maths.Mat4;
 import com.lightsoutgaming.lightsoutengine.maths.Vec2;
@@ -89,7 +89,7 @@ public class Main {
 		Buffer vboA = new Buffer(vertecies, 3);
 		Buffer vboB = new Buffer(vertecies, 3);
 		Buffer vboC = new Buffer(vertecies, 3);
-		Indexbuffer ibo = new Indexbuffer(indecies);
+		IndexBuffer ibo = new IndexBuffer(indecies);
 		
 		Sprite1.addBuffer(vboA, 0);
 		Sprite1.addBuffer(new Buffer(colorsA, 4), 1);

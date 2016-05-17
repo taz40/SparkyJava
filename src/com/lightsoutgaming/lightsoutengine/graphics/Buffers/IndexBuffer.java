@@ -8,12 +8,12 @@ import java.nio.ShortBuffer;
 
 import org.lwjgl.BufferUtils;
 
-public class Indexbuffer {
+public class IndexBuffer {
 
 	private int bufferID;
 	private int count;
 	
-	public Indexbuffer(short[] data){
+	public IndexBuffer(short[] data){
 		this.count = data.length;
 		
 		IntBuffer id = BufferUtils.createIntBuffer(1);
